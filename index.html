@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Snorkelling Conditions Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            background-color: #f0f8ff; /* Soft blue background */
+            padding: 20px;
+        }
+        h1, h3 {
+            color: #0077be; /* Darker blue for headings */
+        }
+        #weatherData, #tideData, #videoStream {
+            background-color: #e0efff; /* Very light blue for data containers */
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        a {
+            color: #0077be; /* Matching link color to heading */
+            text-decoration: none; /* Optional: removes underline from links */
+        }
+        a:hover {
+            text-decoration: underline; /* Restores underline on hover for clarity */
+        }
+    </style>
+</head>
+<body>
+    <h1>Flinders Snorkelling Conditions Dashboard</h1>
+    <h3>Weather</h3>
+    <div id="weatherData">
+        <p>Air Temperature: <span id="airTemp"></span>°C</p>
+        <p>Wind Speed: <span id="windSpeed"></span> kt, Direction: <span id="windDir"></span></p>
+        <p>Gust: <span id="gust"></span> kt</p>
+        <p>Rainfall: <span id="rainfall"></span> mm</p>
+    </div>
+
+    <h3>Tide Times for Flinders</h3>
+    <div id="tideData">
+        <!-- Tide data will be displayed here -->
+    </div>
+
+    <h3>Flinders Surf Cam</h3>
+    <video id="videoStream" controls style="width: 100%; max-width: 640px; height: auto;"></video>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchWeatherData();
+            initVideoStream();
+            fetchTideData();
+        });
+
+        function fetchWeatherData() {
+            const proxyUrl = 'https://corsproxy.io/?';
+            const targetUrl = 'http://www.bom.gov.au/fwo/IDV60701/IDV60701.94898.json';
+            const proxiedRequestUrl = proxyUrl + encodeURIComponent(targetUrl);
+
+            fetch(proxiedRequestUrl)
+            .then(response => response.json())
+            .then(data => {
+                const observations = data.observations.data;
+                const mostRecentObservation = observations[0]; // Assuming the first one is the most recent
+
+                document.getElementById('airTemp').textContent = mostRecentObservation.air_temp;
+                document.getElementById('windSpeed').textContent = mostRecentObservation.wind_spd_kt;
+                document.getElementById('windDir').textContent = mostRecentObservation.wind_dir;
+                document.getElementById('gust').textContent = mostRecentObservation.gust_kt;
+                document.getElementById('rainfall').textContent = mostRecentObservation.rain_trace;
+            })
+            .catch(error => console.error('Error fetching weather data:', error));
+        }
+
+        function initVideoStream() {
+            var video = document.getElementById('videoStream');
+            var videoSrc = 'https://cams.cdn-surfline.com/cdn-au/au-bigleft/chunklist.m3u8';
+            
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource(videoSrc);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED,function() {
+                    video.play();
+                });
+            }
+            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = videoSrc;
+                video.addEventListener('canplay',function() {
+                    video.play();
+                });
+            }
+        }
+
+        function fetchTideData() {
+            const today = new Date().toISOString().slice(0, 10); // Format: YYYY-MM-DD
+            fetch('tide_data.xml')
+                .then(response => response.text())
+                .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+                .then(data => {
+                    const days = data.getElementsByTagName('day');
+                    Array.from(days).forEach(day => {
+                        if (day.getAttribute('date') === today) {
+                            displayTideData(day);
+                        }
+                    });
+                })
+                .catch(error => console.error('Error fetching tide data:', error));
+        }
+
+        function displayTideData(day) {
+            const sunrise = day.querySelector('sunrise').textContent;
+            const sunset = day.querySelector('sunset').textContent;
+            const tideElements = day.getElementsByTagName('tide');
+
+            let tideInfo = `Sunrise: ${sunrise}, Sunset: ${sunset}`;
+            Array.from(tideElements).forEach(tide => {
+                const order = tide.getAttribute('order');
+                const time = tide.getAttribute('time');
+                const height = tide.getAttribute('height');
+                tideInfo += `<br>${order} Tide: ${time}, Height: ${height}`;
+            });
+
+            document.getElementById('tideData').innerHTML = tideInfo;
+        }
+    </script>
+</body>
+</html>
