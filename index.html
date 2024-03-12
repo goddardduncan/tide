@@ -75,27 +75,32 @@
         }
 
         function initVideoStream() {
-            var video = document.getElementById('videoStream');
-            const VproxyUrl = 'https://corsproxy.io/?';
-            const videoUrl = 'https://cams.cdn-surfline.com/cdn-au/au-bigleft/chunklist.m3u8';
-            const proxiedVideoUrl = VproxyUrl + encodeURIComponent(videoUrl);
-            var videoSrc = proxiedVideoUrl;
-            
-            if (Hls.isSupported()) {
-                var hls = new Hls();
-                hls.loadSource(videoSrc);
-                hls.attachMedia(video);
-                hls.on(Hls.Events.MANIFEST_PARSED,function() {
-                    video.play();
-                });
+    var video = document.getElementById('videoStream');
+    var videoSrc = 'https://proxy.cors.sh/https://cams.cdn-surfline.com/cdn-au/au-bigleft/chunklist.m3u8';
+
+    if (Hls.isSupported()) {
+        var hls = new Hls({
+            xhrSetup: function(xhr, url) {
+                // Apply the API key header only to the initial playlist request
+                // This might not work for segment requests if the proxy does not support streaming
+                if (url === videoSrc) {
+                    xhr.setRequestHeader('x-cors-api-key', 'temp_b764f59c4e600098046a0231675d3971');
+                }
             }
-            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = videoSrc;
-                video.addEventListener('canplay',function() {
-                    video.play();
-                });
-            }
-        }
+        });
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            video.play();
+        });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        // This method does not use the proxy or API key, and likely won't work due to CORS
+        video.src = videoSrc;
+        video.addEventListener('canplay', function() {
+            video.play();
+        });
+    }
+}
 
         function fetchTideData() {
             const today = new Date().toISOString().slice(0, 10); // Format: YYYY-MM-DD
