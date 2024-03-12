@@ -76,7 +76,9 @@
 
         function initVideoStream() {
             var video = document.getElementById('videoStream');
-            var videoSrc = 'https://corsproxy.io/?http://cams.cdn-surfline.com/cdn-au/au-bigleft/chunklist.m3u8';
+            const videoUrl = 'http://www.bom.gov.au/fwo/IDV60701/IDV60701.94898.json';
+            const proxiedVideoUrl = proxyUrl + encodeURIComponent(videoUrl);
+            var videoSrc = proxiedVideoUrl;
             
             if (Hls.isSupported()) {
                 var hls = new Hls();
