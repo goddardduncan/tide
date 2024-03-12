@@ -44,7 +44,7 @@
         <!-- Tide data will be displayed here -->
     </div>
 
-    <a href="https://cams.cdn-surfline.com/cdn-au/au-bigleft/chunklist.m3u8" target="_blank">
+    <a href="https://cams.cdn-surfline.com/cdn-au/au-bigleft/chunklist.m3u8" >
     <h3>Flinders Surf Cam</h3>
     </a>
 
@@ -88,16 +88,16 @@
 
             if (Hls.isSupported()) {
                 var hls = new Hls();
-               // hls.loadSource(videoSrc);
-               // hls.attachMedia(video);
-               // hls.on(Hls.Events.MANIFEST_PARSED,function() {
+                  hls.loadSource(videoSrc);
+                  hls.attachMedia(video);
+                  hls.on(Hls.Events.MANIFEST_PARSED,function() {
                     video.play();
                 });
             }
             else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-              //  video.src = videoSrc;
-            //    video.addEventListener('canplay',function() {
-                //    video.play();
+                  video.src = videoSrc;
+                  video.addEventListener('canplay',function() {
+                  video.play();
                 });
             }
         }
