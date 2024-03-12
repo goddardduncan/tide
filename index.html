@@ -59,7 +59,7 @@
             const targetUrl = 'http://www.bom.gov.au/fwo/IDV60701/IDV60701.94898.json';
             const proxiedRequestUrl = proxyUrl + encodeURIComponent(targetUrl);
 
-            fetch(targetUrl)
+            fetch(proxiedRequestUrl)
             .then(response => response.json())
             .then(data => {
                 const observations = data.observations.data;
