@@ -81,7 +81,7 @@
             const VproxyUrl = 'https://corsproxy.io/?';
             const videoUrl = 'https://cams.cdn-surfline.com/cdn-au/au-bigleft/chunklist.m3u8';
             const proxiedVideoUrl = VproxyUrl + encodeURIComponent(videoUrl);
-            var videoSrc = proxiedVideoUrl;
+            var videoSrc = videoUrl;
 
             if (Hls.isSupported()) {
                 var hls = new Hls();
