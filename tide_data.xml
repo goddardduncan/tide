@@ -242,9 +242,225 @@
     <tide order="2nd" time="11:30 am" height="0.4 m"></tide>
     <tide order="3rd" time="6:06 pm" height="3.0 m"></tide>
 </day>
-
-
-
-
-
+<day date="2024-04-01" weekday="Mon">
+    <sunrise>7:31 am</sunrise>
+    <sunset>7:13 pm</sunset>
+    <tide order="1st" time="12:03 am" height="1.0 m"></tide>
+    <tide order="2nd" time="5:47 am" height="2.6 m"></tide>
+    <tide order="3rd" time="12:02 pm" height="0.3 m"></tide>
+    <tide order="4th" time="6:40 pm" height="2.9 m"></tide>
+</day>
+<day date="2024-04-02" weekday="Tue">
+    <sunrise>7:32 am</sunrise>
+    <sunset>7:12 pm</sunset>
+    <tide order="1st" time="12:35 am" height="1.0 m"></tide>
+    <tide order="2nd" time="6:18 am" height="2.6 m"></tide>
+    <tide order="3rd" time="12:36 pm" height="0.3 m"></tide>
+    <tide order="4th" time="7:16 pm" height="2.9 m"></tide>
+</day>
+<day date="2024-04-03" weekday="Wed">
+    <sunrise>7:33 am</sunrise>
+    <sunset>7:10 pm</sunset>
+    <tide order="1st" time="1:10 am" height="1.1 m"></tide>
+    <tide order="2nd" time="6:54 am" height="2.6 m"></tide>
+    <tide order="3rd" time="1:14 pm" height="0.4 m"></tide>
+    <tide order="4th" time="7:57 pm" height="2.8 m"></tide>
+</day>
+<day date="2024-04-04" weekday="Thu">
+    <sunrise>7:34 am</sunrise>
+    <sunset>7:09 pm</sunset>
+    <tide order="1st" time="1:50 am" height="1.1 m"></tide>
+    <tide order="2nd" time="7:38 am" height="2.5 m"></tide>
+    <tide order="3rd" time="2:00 pm" height="0.5 m"></tide>
+    <tide order="4th" time="8:43 pm" height="2.7 m"></tide>
+</day>
+<day date="2024-04-05" weekday="Fri">
+    <sunrise>7:35 am</sunrise>
+    <sunset>7:07 pm</sunset>
+    <tide order="1st" time="2:38 am" height="1.2 m"></tide>
+    <tide order="2nd" time="8:32 am" height="2.5 m"></tide>
+    <tide order="3rd" time="2:56 pm" height="0.6 m"></tide>
+    <tide order="4th" time="9:38 pm" height="2.6 m"></tide>
+</day>
+<day date="2024-04-06" weekday="Sat">
+    <sunrise>7:35 am</sunrise>
+    <sunset>7:06 pm</sunset>
+    <tide order="1st" time="3:40 am" height="1.2 m"></tide>
+    <tide order="2nd" time="9:40 am" height="2.4 m"></tide>
+    <tide order="3rd" time="4:07 pm" height="0.8 m"></tide>
+    <tide order="4th" time="10:43 pm" height="2.5 m"></tide>
+</day>
+<day date="2024-04-07" weekday="Sun">
+    <sunrise>7:36 am</sunrise>
+    <sunset>7:04 pm</sunset>
+    <tide order="1st" time="4:58 am" height="1.2 m"></tide>
+    <tide order="2nd" time="11:02 am" height="2.4 m"></tide>
+    <tide order="3rd" time="4:34 pm" height="0.9 m"></tide>
+    <tide order="4th" time="10:56 pm" height="2.5 m"></tide>
+</day>
+<day date="2024-04-08" weekday="Mon">
+    <sunrise>6:37 am</sunrise>
+    <sunset>6:03 pm</sunset>
+    <tide order="1st" time="5:21 am" height="1.0 m"></tide>
+    <tide order="2nd" time="11:34 am" height="2.5 m"></tide>
+    <tide order="3rd" time="6:02 pm" height="0.9 m"></tide>
+</day>
+<day date="2024-04-09" weekday="Tue">
+    <sunrise>6:38 am</sunrise>
+    <sunset>6:01 pm</sunset>
+    <tide order="1st" time="12:09 am" height="2.5 m"></tide>
+    <tide order="2nd" time="6:32 am" height="0.7 m"></tide>
+    <tide order="3rd" time="12:55 pm" height="2.8 m"></tide>
+    <tide order="4th" time="7:13 pm" height="0.8 m"></tide>
+</day>
+<day date="2024-04-10" weekday="Wed">
+    <sunrise>6:39 am</sunrise>
+    <sunset>6:00 pm</sunset>
+    <tide order="1st" time="1:12 am" height="2.7 m"></tide>
+    <tide order="2nd" time="7:30 am" height="0.5 m"></tide>
+    <tide order="3rd" time="2:00 pm" height="3.0 m"></tide>
+    <tide order="4th" time="8:11 pm" height="0.8 m"></tide>
+</day>
+<day date="2024-04-11" weekday="Thu">
+    <sunrise>6:40 am</sunrise>
+    <sunset>5:58 pm</sunset>
+    <tide order="1st" time="2:06 am" height="2.8 m"></tide>
+    <tide order="2nd" time="8:21 am" height="0.3 m"></tide>
+    <tide order="3rd" time="2:54 pm" height="3.2 m"></tide>
+    <tide order="4th" time="9:02 pm" height="0.8 m"></tide>
+</day>
+<day date="2024-04-12" weekday="Fri">
+    <sunrise>6:41 am</sunrise>
+    <sunset>5:57 pm</sunset>
+    <tide order="1st" time="2:54 am" height="2.8 m"></tide>
+    <tide order="2nd" time="9:08 am" height="0.2 m"></tide>
+    <tide order="3rd" time="3:43 pm" height="3.3 m"></tide>
+    <tide order="4th" time="9:48 pm" height="0.8 m"></tide>
+</day>
+<day date="2024-04-13" weekday="Sat">
+    <sunrise>6:42 am</sunrise>
+    <sunset>5:55 pm</sunset>
+    <tide order="1st" time="3:38 am" height="2.9 m"></tide>
+    <tide order="2nd" time="9:52 am" height="0.1 m"></tide>
+    <tide order="3rd" time="4:29 pm" height="3.3 m"></tide>
+    <tide order="4th" time="10:31 pm" height="0.8 m"></tide>
+</day>
+<day date="2024-04-14" weekday="Sun">
+    <sunrise>6:43 am</sunrise>
+    <sunset>5:54 pm</sunset>
+    <tide order="1st" time="4:20 am" height="2.9 m"></tide>
+    <tide order="2nd" time="10:33 am" height="0.2 m"></tide>
+    <tide order="3rd" time="5:11 pm" height="3.2 m"></tide>
+    <tide order="4th" time="11:12 pm" height="0.9 m"></tide>
+</day>
+<day date="2024-04-15" weekday="Mon">
+    <sunrise>6:44 am</sunrise>
+    <sunset>5:53 pm</sunset>
+    <tide order="1st" time="4:59 am" height="2.8 m"></tide>
+    <tide order="2nd" time="11:13 am" height="0.3 m"></tide>
+    <tide order="3rd" time="5:51 pm" height="3.1 m"></tide>
+    <tide order="4th" time="11:50 pm" height="1.0 m"></tide>
+</day>
+<day date="2024-04-16" weekday="Tue">
+    <sunrise>6:45 am</sunrise>
+    <sunset>5:51 pm</sunset>
+    <tide order="1st" time="5:37 am" height="2.7 m"></tide>
+    <tide order="2nd" time="11:50 am" height="0.4 m"></tide>
+    <tide order="3rd" time="6:29 pm" height="2.9 m"></tide>
+</day>
+<day date="2024-04-17" weekday="Wed">
+    <sunrise>6:46 am</sunrise>
+    <sunset>5:50 pm</sunset>
+    <tide order="1st" time="12:28 am" height="1.1 m"></tide>
+    <tide order="2nd" time="6:15 am" height="2.5 m"></tide>
+    <tide order="3rd" time="12:27 pm" height="0.6 m"></tide>
+    <tide order="4th" time="7:06 pm" height="2.8 m"></tide>
+</day>
+<day date="2024-04-18" weekday="Thu">
+    <sunrise>6:47 am</sunrise>
+    <sunset>5:48 pm</sunset>
+    <tide order="1st" time="1:08 am" height="1.2 m"></tide>
+    <tide order="2nd" time="6:56 am" height="2.4 m"></tide>
+    <tide order="3rd" time="1:06 pm" height="0.8 m"></tide>
+    <tide order="4th" time="7:45 pm" height="2.6 m"></tide>
+</day>
+<day date="2024-04-19" weekday="Fri">
+    <sunrise>6:47 am</sunrise>
+    <sunset>5:47 pm</sunset>
+    <tide order="1st" time="1:52 am" height="1.2 m"></tide>
+    <tide order="2nd" time="7:43 am" height="2.3 m"></tide>
+    <tide order="3rd" time="1:51 pm" height="1.0 m"></tide>
+    <tide order="4th" time="8:28 pm" height="2.5 m"></tide>
+</day>
+<day date="2024-04-20" weekday="Sat">
+    <sunrise>6:48 am</sunrise>
+    <sunset>5:46 pm</sunset>
+    <tide order="1st" time="2:45 am" height="1.3 m"></tide>
+    <tide order="2nd" time="8:40 am" height="2.2 m"></tide>
+    <tide order="3rd" time="2:47 pm" height="1.1 m"></tide>
+    <tide order="4th" time="9:18 pm" height="2.4 m"></tide>
+</day>
+<day date="2024-04-21" weekday="Sun">
+    <sunrise>6:49 am</sunrise>
+    <sunset>5:44 pm</sunset>
+    <tide order="1st" time="3:51 am" height="1.2 m"></tide>
+    <tide order="2nd" time="9:50 am" height="2.2 m"></tide>
+    <tide order="3rd" time="4:00 pm" height="1.2 m"></tide>
+    <tide order="4th" time="10:17 pm" height="2.4 m"></tide>
+</day>
+<day date="2024-04-22" weekday="Mon">
+    <sunrise>6:50 am</sunrise>
+    <sunset>5:43 pm</sunset>
+    <tide order="1st" time="5:00 am" height="1.1 m"></tide>
+    <tide order="2nd" time="11:10 am" height="2.3 m"></tide>
+    <tide order="3rd" time="5:22 pm" height="1.3 m"></tide>
+    <tide order="4th" time="11:20 pm" height="2.4 m"></tide>
+</day>
+<day date="2024-04-23" weekday="Tue">
+    <sunrise>6:51 am</sunrise>
+    <sunset>5:42 pm</sunset>
+    <tide order="1st" time="6:00 am" height="1.0 m"></tide>
+    <tide order="2nd" time="12:22 pm" height="2.4 m"></tide>
+    <tide order="3rd" time="6:30 pm" height="1.2 m"></tide>
+</day>
+<day date="2024-04-24" weekday="Wed">
+    <sunrise>6:52 am</sunrise>
+    <sunset>5:41 pm</sunset>
+    <tide order="1st" time="12:19 am" height="2.4 m"></tide>
+    <tide order="2nd" time="6:50 am" height="0.8 m"></tide>
+    <tide order="3rd" time="1:19 pm" height="2.6 m"></tide>
+    <tide order="4th" time="7:25 pm" height="1.1 m"></tide>
+</day>
+<day date="2024-04-25" weekday="Thu">
+    <sunrise>6:53 am</sunrise>
+    <sunset>5:39 pm</sunset>
+    <tide order="1st" time="1:10 am" height="2.5 m"></tide>
+    <tide order="2nd" time="7:33 am" height="0.7 m"></tide>
+    <tide order="3rd" time="2:06 pm" height="2.8 m"></tide>
+    <tide order="4th" time="8:12 pm" height="1.1 m"></tide>
+</day>
+<day date="2024-04-26" weekday="Fri">
+    <sunrise>6:54 am</sunrise>
+    <sunset>5:38 pm</sunset>
+    <tide order="1st" time="1:55 am" height="2.5 m"></tide>
+    <tide order="2nd" time="8:12 am" height="0.6 m"></tide>
+    <tide order="3rd" time="2:49 pm" height="2.9 m"></tide>
+    <tide order="4th" time="8:54 pm" height="1.0 m"></tide>
+</day>
+<day date="2024-04-27" weekday="Sat">
+    <sunrise>6:55 am</sunrise>
+    <sunset>5:37 pm</sunset>
+    <tide order="1st" time="2:34 am" height="2.5 m"></tide>
+    <tide order="2nd" time="8:49 am" height="0.5 m"></tide>
+    <tide order="3rd" time="3:28 pm" height="3.0 m"></tide>
+    <tide order="4th" time="9:33 pm" height="1.0 m"></tide>
+</day>
+<day date="2024-04-28" weekday="Sun">
+    <sunrise>6:56 am</sunrise>
+    <sunset>5:36 pm</sunset>
+    <tide order="1st" time="3:10 am" height="2.6 m"></tide>
+    <tide order="2nd" time="9:24 am" height="0.4 m"></tide>
+    <tide order="3rd" time="4:06 pm" height="3.1 m"></tide>
+    <tide order="4th" time="10:09 pm" height="1.0 m"></tide>
+</day>
 </tides>
