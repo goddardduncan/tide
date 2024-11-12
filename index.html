@@ -27,6 +27,20 @@
         a:hover {
             text-decoration: underline; /* Restores underline on hover for clarity */
         }
+            #iframe-container {
+      width: 100%;
+      max-width: 800px;
+      height: 450px;
+      border: 2px solid #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
     </style>
 </head>
 <body>
@@ -47,9 +61,9 @@
     <a href="https://cams.cdn-surfline.com/cdn-au/au-bigleft/chunklist.m3u8" >
     <h3>Flinders Surf Cam</h3>
     </a>
-
-    <video id="videoStream" controls style="width: 100%; max-width: 640px; height: auto;"></video>
-
+  <div id="iframe-container">
+    <iframe src="https://equatorial-imminent-coelurus.glitch.me/" allowfullscreen></iframe>
+  </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             fetchWeatherData();
