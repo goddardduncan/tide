@@ -14,7 +14,7 @@
         h1, h3 {
             color: #0077be; /* Darker blue for headings */
         }
-        #weatherData, #tideData, #videoStream {
+        #weatherData, #tideData, #videoStreamContainer { /* Renamed container ID */
             background-color: #e0efff; /* Very light blue for data containers */
             border-radius: 10px;
             padding: 15px;
@@ -27,20 +27,20 @@
         a:hover {
             text-decoration: underline; /* Restores underline on hover for clarity */
         }
-            #iframe-container {
-      width: 100%;
-      max-width: 800px;
-      height: 450px;
-      border: 2px solid #ccc;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+        /* New styles for the video player */
+        #videoStream {
+            width: 100%;
+            max-width: 800px; /* Constraints for the video player */
+            height: auto;
+            display: block; /* Ensures it acts like a block element */
+        }
+        #videoStreamContainer {
+            width: 100%;
+            max-width: 830px; /* Slightly larger than the video for padding */
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+        }
     </style>
 </head>
 <body>
@@ -55,15 +55,15 @@
 
     <h3>Tide Times for Flinders</h3>
     <div id="tideData">
-        <!-- Tide data will be displayed here -->
-    </div>
+        </div>
 
     <a href="https://cam.goddardduncan.workers.dev/flinders.m3u8" >
     <h3>Flinders Surf Cam</h3>
     </a>
-  <div id="iframe-container">
-    <iframe src="https://equatorial-imminent-coelurus.glitch.me/" allowfullscreen></iframe>
-  </div>
+    <div id="videoStreamContainer">
+        <video id="videoStream" controls autoplay muted></video>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             fetchWeatherData();
@@ -72,46 +72,67 @@
         });
 
         function fetchWeatherData() {
-    const proxyUrl = 'https://corsproxy.io/?';
-    const targetUrl = 'http://www.bom.gov.au/fwo/IDV60701/IDV60701.94898.json';
-    const timeStamp = new Date().getTime(); // Get current time as a timestamp
-    const proxiedRequestUrl = proxyUrl + encodeURIComponent(targetUrl + '?timestamp=' + timeStamp);
+            const proxyUrl = 'https://corsproxy.io/?';
+            const targetUrl = 'http://www.bom.gov.au/fwo/IDV60701/IDV60701.94898.json';
+            const timeStamp = new Date().getTime(); // Get current time as a timestamp
+            const proxiedRequestUrl = proxyUrl + encodeURIComponent(targetUrl + '?timestamp=' + timeStamp);
 
-    fetch(proxiedRequestUrl)
-    .then(response => response.json())
-    .then(data => {
-        const observations = data.observations.data;
-        const mostRecentObservation = observations[0]; // Assuming the first one is the most recent
+            fetch(proxiedRequestUrl)
+            .then(response => response.json())
+            .then(data => {
+                const observations = data.observations.data;
+                const mostRecentObservation = observations[0]; // Assuming the first one is the most recent
 
-        document.getElementById('airTemp').textContent = mostRecentObservation.air_temp;
-        document.getElementById('windSpeed').textContent = mostRecentObservation.wind_spd_kt;
-        document.getElementById('windDir').textContent = mostRecentObservation.wind_dir;
-        document.getElementById('gust').textContent = mostRecentObservation.gust_kt;
-        document.getElementById('rainfall').textContent = mostRecentObservation.rain_trace;
-    })
-    .catch(error => console.error('Error fetching weather data:', error));
-}
+                document.getElementById('airTemp').textContent = mostRecentObservation.air_temp;
+                document.getElementById('windSpeed').textContent = mostRecentObservation.wind_spd_kt;
+                document.getElementById('windDir').textContent = mostRecentObservation.wind_dir;
+                document.getElementById('gust').textContent = mostRecentObservation.gust_kt;
+                document.getElementById('rainfall').textContent = mostRecentObservation.rain_trace;
+            })
+            .catch(error => console.error('Error fetching weather data:', error));
+        }
 
 
         function initVideoStream() {
             var video = document.getElementById('videoStream');
             const videoUrl = 'https://cam.goddardduncan.workers.dev/flinders.m3u8';
-            const proxiedVideoUrl = encodeURIComponent(videoUrl);
-            var videoSrc = videoUrl;
+            var videoSrc = videoUrl; // Use the direct URL for HLS
 
+            // Check if HLS is supported by the hls.js library
             if (Hls.isSupported()) {
                 var hls = new Hls();
-                  hls.loadSource(videoSrc);
-                  hls.attachMedia(video);
-                  hls.on(Hls.Events.MANIFEST_PARSED,function() {
-                    video.play();
+                hls.loadSource(videoSrc);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED,function() {
+                    video.play(); // Start playing once the manifest is parsed
+                });
+                hls.on(Hls.Events.ERROR, function (event, data) {
+                    if (data.fatal) {
+                        switch(data.type) {
+                            case Hls.ErrorTypes.NETWORK_ERROR:
+                                console.error("Fatal network error encountered, trying to recover");
+                                hls.startLoad();
+                                break;
+                            case Hls.ErrorTypes.MEDIA_ERROR:
+                                console.error("Fatal media error encountered, trying to recover");
+                                hls.recoverMediaError();
+                                break;
+                            default:
+                                hls.destroy();
+                                break;
+                        }
+                    }
                 });
             }
+            // Fallback for native HLS support (Safari on macOS/iOS)
             else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                  video.src = videoSrc;
-                  video.addEventListener('canplay',function() {
-                  video.play();
+                video.src = videoSrc;
+                video.addEventListener('loadedmetadata',function() {
+                    video.play();
                 });
+            } else {
+                // Display error message if neither is supported
+                video.parentElement.innerHTML = '<p>Your browser does not support HLS streaming.</p>';
             }
         }
 
