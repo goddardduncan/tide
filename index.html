@@ -53,6 +53,13 @@
         <p>Rainfall: <span id="rainfall"></span> mm</p>
     </div>
 
+    <a href="https://cam.goddardduncan.workers.dev/flinders.m3u8" >
+    <h3>Flinders Surf Cam</h3>
+    </a>
+    <div id="videoStreamContainer">
+        <video id="videoStream" controls autoplay muted></video>
+    </div>
+
     <h3>Tide Times for Flinders</h3>
     <div id="tideData">
         <iframe src="https://www.bom.gov.au/ntc/IDO59001/IDO59001_2025_VIC_TP013.pdf" 
@@ -61,14 +68,7 @@
         style="border: none;">
         </iframe>
     </div>
-
-    <a href="https://cam.goddardduncan.workers.dev/flinders.m3u8" >
-    <h3>Flinders Surf Cam</h3>
-    </a>
-    <div id="videoStreamContainer">
-        <video id="videoStream" controls autoplay muted></video>
-    </div>
-
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             fetchWeatherData();
