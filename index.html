@@ -58,7 +58,7 @@
         <!-- Tide data will be displayed here -->
     </div>
 
-    <a href="https://corsproxy.io/?https://cams.cdn-surfline.com/cdn-au/au-bigleft/chunklist.m3u8" >
+    <a href="https://cam.goddardduncan.workers.dev/flinders.m3u8" >
     <h3>Flinders Surf Cam</h3>
     </a>
   <div id="iframe-container">
@@ -95,9 +95,8 @@
 
         function initVideoStream() {
             var video = document.getElementById('videoStream');
-            const VproxyUrl = 'https://corsproxy.org/?';
-            const videoUrl = 'https://cams.cdn-surfline.com/cdn-au/au-bigleft/chunklist.m3u8';
-            const proxiedVideoUrl = VproxyUrl + encodeURIComponent(videoUrl);
+            const videoUrl = 'https://cam.goddardduncan.workers.dev/flinders.m3u8';
+            const proxiedVideoUrl = encodeURIComponent(videoUrl);
             var videoSrc = videoUrl;
 
             if (Hls.isSupported()) {
