@@ -8,35 +8,34 @@
         body {
             font-family: 'Arial', sans-serif;
             color: #333;
-            background-color: #f0f8ff; /* Soft blue background */
+            background-color: #f0f8ff;
             padding: 20px;
         }
         h1, h3 {
-            color: #0077be; /* Darker blue for headings */
+            color: #0077be;
         }
-        #weatherData, #tideData, #videoStreamContainer { /* Renamed container ID */
-            background-color: #e0efff; /* Very light blue for data containers */
+        #weatherData, #tideData, #videoStreamContainer {
+            background-color: #e0efff;
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 20px;
         }
         a {
-            color: #0077be; /* Matching link color to heading */
-            text-decoration: none; /* Optional: removes underline from links */
+            color: #0077be;
+            text-decoration: none;
         }
         a:hover {
-            text-decoration: underline; /* Restores underline on hover for clarity */
+            text-decoration: underline;
         }
-        /* New styles for the video player */
         #videoStream {
             width: 100%;
-            max-width: 800px; /* Constraints for the video player */
+            max-width: 800px;
             height: auto;
-            display: block; /* Ensures it acts like a block element */
+            display: block;
         }
         #videoStreamContainer {
             width: 100%;
-            max-width: 830px; /* Slightly larger than the video for padding */
+            max-width: 830px;
             padding: 10px;
             box-sizing: border-box;
             border: 2px solid #ccc;
@@ -45,6 +44,7 @@
 </head>
 <body>
     <h1>Flinders Snorkelling Conditions Dashboard</h1>
+    
     <h3>Weather</h3>
     <div id="weatherData">
         <p>Air Temperature: <span id="airTemp"></span>°C</p>
@@ -53,8 +53,8 @@
         <p>Rainfall: <span id="rainfall"></span> mm</p>
     </div>
 
-    <a href="https://tidecam.dunc.app/flinders.m3u8" >
-    <h3>Flinders Surf Cam</h3>
+    <a href="https://tidecam.dunc.app/flinders.m3u8">
+        <h3>Flinders Surf Cam</h3>
     </a>
     <div id="videoStreamContainer">
         <video id="videoStream" controls autoplay muted></video>
@@ -62,14 +62,13 @@
 
     <h3>Tide Times for Flinders</h3>
     <div id="tideData">
-        <iframe src="https://www.bom.gov.au/ntc/IDO59001/IDO59001_2026_VIC_TP013.pdf" 
-        width="100%" 
-        height="800px" 
-        style="border: none;">
-        </iframe>
+        <p>Loading tide data...</p>
     </div>
     
     <script>
+        // Production base URL
+        const API_BASE = "https://tidecam.dunc.app/";
+
         document.addEventListener('DOMContentLoaded', function() {
             fetchWeatherData();
             initVideoStream();
@@ -78,7 +77,7 @@
 
         function fetchWeatherData() {
             const timeStamp = new Date().getTime();
-            fetch(`https://tidecam.dunc.app/bom/IDV60701/IDV60701.94898.json?t=${timeStamp}`)
+            fetch(`${API_BASE}/bom/IDV60701/IDV60701.94898.json?t=${timeStamp}`)
                 .then(response => response.json())
                 .then(data => {
                     const obs = data.observations.data[0];
@@ -88,81 +87,55 @@
                     document.getElementById('gust').textContent = obs.gust_kt;
                     document.getElementById('rainfall').textContent = obs.rain_trace;
                 })
-        .catch(error => console.error('Error fetching weather data:', error));
+                .catch(error => console.error('Error fetching weather data:', error));
         }
-
 
         function initVideoStream() {
             var video = document.getElementById('videoStream');
-            const videoUrl = 'https://tidecam.dunc.app/au-bigleft.m3u8';
-            var videoSrc = videoUrl; // Use the direct URL for HLS
+            const videoUrl = `${API_BASE}/au-bigleft.m3u8`;
 
-            // Check if HLS is supported by the hls.js library
             if (Hls.isSupported()) {
                 var hls = new Hls();
-                hls.loadSource(videoSrc);
+                hls.loadSource(videoUrl);
                 hls.attachMedia(video);
-                hls.on(Hls.Events.MANIFEST_PARSED,function() {
-                    video.play(); // Start playing once the manifest is parsed
-                });
-                hls.on(Hls.Events.ERROR, function (event, data) {
-                    if (data.fatal) {
-                        switch(data.type) {
-                            case Hls.ErrorTypes.NETWORK_ERROR:
-                                console.error("Fatal network error encountered, trying to recover");
-                                hls.startLoad();
-                                break;
-                            case Hls.ErrorTypes.MEDIA_ERROR:
-                                console.error("Fatal media error encountered, trying to recover");
-                                hls.recoverMediaError();
-                                break;
-                            default:
-                                hls.destroy();
-                                break;
-                        }
-                    }
-                });
-            }
-            // Fallback for native HLS support (Safari on macOS/iOS)
-            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = videoSrc;
-                video.addEventListener('loadedmetadata',function() {
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
                     video.play();
                 });
-            } else {
-                // Display error message if neither is supported
-                video.parentElement.innerHTML = '<p>Your browser does not support HLS streaming.</p>';
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = videoUrl;
+                video.addEventListener('loadedmetadata', function() {
+                    video.play();
+                });
             }
         }
 
         function fetchTideData() {
-            const today = new Date().toISOString().slice(0, 10); // Format: YYYY-MM-DD
-            fetch('tide_data.xml')
-                .then(response => response.text())
-                .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+            fetch(`${API_BASE}/tides/VIC_TP013`)
+                .then(response => response.json())
                 .then(data => {
-                    const days = data.getElementsByTagName('day');
-                    Array.from(days).forEach(day => {
-                        if (day.getAttribute('date') === today) {
-                            displayTideData(day);
-                        }
-                    });
+                    displayTideData(data.results);
                 })
-                .catch(error => console.error('Error fetching tide data:', error));
+                .catch(error => {
+                    console.error('Error fetching tide data:', error);
+                    document.getElementById('tideData').innerHTML = '<p>Error loading tide data.</p>';
+                });
         }
 
-        function displayTideData(day) {
-            const sunrise = day.querySelector('sunrise').textContent;
-            const sunset = day.querySelector('sunset').textContent;
-            const tideElements = day.getElementsByTagName('tide');
-//            let tideInfo = `Sunrise: ${sunrise}, Sunset: ${sunset}`;
-            let tideInfo = ``;
-            Array.from(tideElements).forEach(tide => {
-                const order = tide.getAttribute('order');
-                const time = tide.getAttribute('time');
-                const height = tide.getAttribute('height');
-                tideInfo += `<br>${order} Tide: ${time}, Height: ${height}`;
-            });
+        function displayTideData(results) {
+            const formatTime = (unixTime) => {
+                return new Date(unixTime * 1000).toLocaleTimeString([], { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+            };
+
+            const high = results.next_high;
+            const low = results.next_low;
+
+            const tideInfo = `
+                <p><strong>Next High Tide:</strong> ${formatTime(high.time)} (${high.height}m)</p>
+                <p><strong>Next Low Tide:</strong> ${formatTime(low.time)} (${low.height}m)</p>
+            `;
 
             document.getElementById('tideData').innerHTML = tideInfo;
         }
