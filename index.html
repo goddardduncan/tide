@@ -78,7 +78,7 @@
 
         function fetchWeatherData() {
             const timeStamp = new Date().getTime();
-            fetch(`/bom/IDV60701/IDV60701.94898.json?t=${timeStamp}`)
+            fetch(`https://tidecam.dunc.app/bom/IDV60701/IDV60701.94898.json?t=${timeStamp}`)
                 .then(response => response.json())
                 .then(data => {
                     const obs = data.observations.data[0];
